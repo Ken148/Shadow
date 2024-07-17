@@ -1,0 +1,12 @@
+[configuration]
+
+entry_symbol = "gate_effect_init"
+compatibility_minimum = 4.2
+
+[libraries]
+
+windows.debug.x86_64 = "bin/libaudio_gate.windows.debug.x86_64.dll"
+windows.release.x86_64 = "bin/libaudio_gate.windows.release.x86_64.dll"
+linux.debug.x86_64 = "bin/libaudio_gate.linux.debug.x86_64.so"
+linux.release.x86_64 = "bin/libaudio_gate.linux.release.x86_64.so"
+android.release.arm64 = "res://bin/libaudio_gate.android.release.arm64.so"
