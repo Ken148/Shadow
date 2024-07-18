@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3wf6g6u0uyx0"]
+
+[ext_resource type="Texture2D" uid="uid://drmtnv38ovmbj" path="res://Character_sheet.png" id="1_x5q1i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbw1o"]
+size = Vector2(184, 269)
+
+[sub_resource type="Animation" id="Animation_u0jn6"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_x5q1i")]
+}
+
+[sub_resource type="Animation" id="Animation_lsw2n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_x5q1i")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0d78g"]
+_data = {
+"Idle": SubResource("Animation_u0jn6"),
+"RESET": SubResource("Animation_lsw2n")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-148, -124)
+scale = Vector2(8.9625, 8.5625)
+texture = ExtResource("1_x5q1i")
+centered = false
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-49, 10)
+shape = SubResource("RectangleShape2D_fbw1o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0d78g")
+}
