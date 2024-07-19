@@ -1,21 +1,27 @@
 extends CharacterBody2D
 
-var speed=10
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var speed = 200
+var velocity_ = Vector2()
 
+func get_input():
+	var direction = Vector2()
+	if Input.is_action_pressed("move_up"):
+		direction.y -= 1
+		$PlayerAnimator.play("Player_animations/Turn_backwards")
+		
+	if Input.is_action_pressed("move_down"):
+		direction.y += 1
+		$PlayerAnimator.play("Player_animations/Turn_forward")
+		
+	if Input.is_action_pressed("move_right"):
+		direction.x += 1
+		$PlayerAnimator.play("Player_animations/Turn_right")
+		
+	if Input.is_action_pressed("move_left"):
+		direction.x -= 1
+		$PlayerAnimator.play("Player_animations/Turn_left")
+	velocity_ = direction.normalized() * speed
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func _input(event):
-	if event.is_action("move_up"):
-		position.y-=speed
-	if event.is_action("move_down"):
-		position.y+=speed
-	if event.is_action("move_right"):
-		position.x+=speed
-	if event.is_action("move_left"):
-		position.x-=speed
+func _physics_process(delta):
+	get_input()
+	move_and_collide(velocity_ * delta)

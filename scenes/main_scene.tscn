@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://bim12nsgu4hmv"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_hptpn"]
+[ext_resource type="Texture2D" uid="uid://b4bmuvfog4qhx" path="res://assets/Character_sheet.png" id="1_nqgk4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv28e"]
+
+[sub_resource type="Animation" id="Animation_5mi1e"]
+resource_name = "Turn_right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lve5e"]
+resource_name = "Turn_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_uwegl"]
+resource_name = "Turn_backwards"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_y5rdu"]
+resource_name = "Turn_forward"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p13g8"]
+_data = {
+"Turn_backwards": SubResource("Animation_uwegl"),
+"Turn_forward": SubResource("Animation_y5rdu"),
+"Turn_left": SubResource("Animation_lve5e"),
+"Turn_right": SubResource("Animation_5mi1e")
+}
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(577, 329)
+scale = Vector2(5.90028, 5.90028)
+script = ExtResource("1_hptpn")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_nqgk4")
+hframes = 6
+vframes = 6
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 1)
+scale = Vector2(1, 1.08)
+shape = SubResource("CapsuleShape2D_sv28e")
+
+[node name="PlayerAnimator" type="AnimationPlayer" parent="Player"]
+root_node = NodePath("../CollisionShape2D")
+libraries = {
+"Player_animations": SubResource("AnimationLibrary_p13g8")
+}
