@@ -19,6 +19,7 @@ func get_input():
 		
 	if Input.is_action_pressed("move_left"):
 		direction.x -= 1
+		$Sprite2D/EnemyAnimation.play("Turn_left")
 	velocity_ = direction.normalized() * speed
 
 func _physics_process(delta):
