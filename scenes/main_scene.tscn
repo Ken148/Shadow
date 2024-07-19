@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bim12nsgu4hmv"]
+[gd_scene load_steps=12 format=3 uid="uid://bim12nsgu4hmv"]
 
 [ext_resource type="Texture2D" uid="uid://dtq56prup2lmr" path="res://assets/HealthBar/Under.png" id="1_dkwgi"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hptpn"]
@@ -79,6 +79,9 @@ _data = {
 "Turn_right": SubResource("Animation_5mi1e")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0op7"]
+size = Vector2(40, 40)
+
 [node name="MainScene" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -128,26 +131,41 @@ libraries = {
 "Player_animations": SubResource("AnimationLibrary_p13g8")
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 833.0
-offset_top = 419.0
-offset_right = 873.0
-offset_bottom = 459.0
-scale = Vector2(3.42857, 3.4277)
-color = Color(0.728149, 0.730998, 0.150485, 1)
+[node name="Block" type="StaticBody2D" parent="."]
+position = Vector2(781, 437)
+scale = Vector2(2.44792, 2.49841)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = 17.0
-offset_top = 508.0
-offset_right = 57.0
-offset_bottom = 548.0
-scale = Vector2(7.62454, 2.53252)
-color = Color(0.408116, 0.784837, 0.659003, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_d0op7")
 
-[node name="ColorRect3" type="ColorRect" parent="."]
-offset_left = -234.0
-offset_top = 46.0
-offset_right = -194.0
-offset_bottom = 86.0
-scale = Vector2(3.42857, 3.4277)
-color = Color(0.49, 0.476933, 0.4704, 1)
+[node name="ColorRect" type="ColorRect" parent="Block"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0.792157, 0.411765, 1)
+
+[node name="Block2" type="StaticBody2D" parent="."]
+position = Vector2(93, 269)
+scale = Vector2(5.9923, 2.11404)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_d0op7")
+
+[node name="ColorRect" type="ColorRect" parent="Block2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.324545, 0.3159, 0.39, 1)
+
+[node name="Block3" type="StaticBody2D" parent="."]
+position = Vector2(1107, 193)
+scale = Vector2(9.72586, 4.02954)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block3"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_d0op7")
+
+[node name="ColorRect" type="ColorRect" parent="Block3"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.35, 0.343875, 0.3325, 1)

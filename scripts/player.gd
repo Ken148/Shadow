@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 200
+var speed = 500
 var velocity_ = Vector2()
 
 func get_input():
