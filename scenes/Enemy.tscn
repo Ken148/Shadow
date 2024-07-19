@@ -83,7 +83,7 @@ _data = {
 radius = 11.0
 height = 32.0
 
-[node name="PlayerNew" type="Node2D"]
+[node name="Enemy" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(539, 291)
