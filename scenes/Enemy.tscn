@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://davyjo4nkyjpl"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_pgymr"]
-[ext_resource type="Texture2D" uid="uid://dh4jesn3r4fbp" path="res://Character_sheet.png" id="2_ubf56"]
+[ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_lv6ad"]
+[ext_resource type="Texture2D" uid="uid://b4bmuvfog4qhx" path="res://assets/Character_sheet.png" id="2_l85cc"]
 
 [sub_resource type="Animation" id="Animation_hv6qj"]
 length = 0.001
 
-[sub_resource type="Animation" id="Animation_c5xjr"]
-resource_name = "Walk_right"
+[sub_resource type="Animation" id="Animation_hde8a"]
+resource_name = "Turn_backwards"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -19,23 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_rhgap"]
-resource_name = "Turn_left"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_c1535"]
@@ -54,8 +38,8 @@ tracks/0/keys = {
 "values": [2]
 }
 
-[sub_resource type="Animation" id="Animation_hde8a"]
-resource_name = "Turn_backwards"
+[sub_resource type="Animation" id="Animation_rhgap"]
+resource_name = "Turn_left"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -67,7 +51,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_c5xjr"]
+resource_name = "Walk_right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b0yb2"]
@@ -84,17 +84,19 @@ radius = 11.0
 height = 32.0
 
 [node name="PlayerNew" type="Node2D"]
-script = ExtResource("1_pgymr")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(539, 291)
+scale = Vector2(6.43976, 6.43976)
+script = ExtResource("1_lv6ad")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("2_ubf56")
+texture = ExtResource("2_l85cc")
 hframes = 6
 vframes = 6
 frame = 3
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/Sprite2D"]
+[node name="EnemyAnimation" type="AnimationPlayer" parent="CharacterBody2D/Sprite2D"]
 libraries = {
 "": SubResource("AnimationLibrary_b0yb2")
 }
