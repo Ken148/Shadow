@@ -25,3 +25,6 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	move_and_collide(velocity_ * delta)
+
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN

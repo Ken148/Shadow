@@ -105,7 +105,6 @@ offset_bottom = -26.4862
 scale = Vector2(0.369367, 3.32428)
 
 [node name="Health_fill" type="TextureProgressBar" parent="Player/Camera2D/UI"]
-layout_mode = 0
 offset_left = 10.0
 offset_top = 1.0
 offset_right = 90.0
@@ -123,37 +122,30 @@ offset_bottom = 14.0
 value = 75.0
 texture_progress = ExtResource("4_61yok")
 
-[node name="Ability_1" type="TextureProgressBar" parent="Player/Camera2D/UI"]
-layout_mode = 2
+[node name="Abilitys" type="GridContainer" parent="Player/Camera2D/UI"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 33.0
-offset_right = 25.0
+offset_right = 82.0
 offset_bottom = 49.0
-scale = Vector2(3, 0.35)
+scale = Vector2(2.73802, 0.334951)
+theme_override_constants/h_separation = 2
+columns = 4
+
+[node name="Ability_1" type="TextureProgressBar" parent="Player/Camera2D/UI/Abilitys"]
+layout_mode = 2
 texture_under = ExtResource("5_5swrj")
 
-[node name="Ability_2" type="TextureProgressBar" parent="Player/Camera2D/UI"]
-offset_left = 62.0011
-offset_top = 32.7781
-offset_right = 77.0011
-offset_bottom = 48.7781
-scale = Vector2(3, 0.35)
+[node name="Ability_2" type="TextureProgressBar" parent="Player/Camera2D/UI/Abilitys"]
+layout_mode = 2
 texture_under = ExtResource("6_u5n0t")
 
-[node name="Ability_3" type="TextureProgressBar" parent="Player/Camera2D/UI"]
-offset_left = 115.001
-offset_top = 33.2225
-offset_right = 130.001
-offset_bottom = 49.2225
-scale = Vector2(3, 0.35)
+[node name="Ability_3" type="TextureProgressBar" parent="Player/Camera2D/UI/Abilitys"]
+layout_mode = 2
 texture_under = ExtResource("7_3gwtf")
 
-[node name="Ability_4" type="TextureProgressBar" parent="Player/Camera2D/UI"]
-offset_left = 168.001
-offset_top = 33.1114
-offset_right = 183.001
-offset_bottom = 49.1114
-scale = Vector2(3, 0.35)
+[node name="Ability_4" type="TextureProgressBar" parent="Player/Camera2D/UI/Abilitys"]
+layout_mode = 2
 texture_under = ExtResource("8_jkex3")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -174,40 +166,61 @@ libraries = {
 }
 
 [node name="Block" type="StaticBody2D" parent="."]
-position = Vector2(781, 437)
+show_behind_parent = true
+position = Vector2(-459, 89)
 scale = Vector2(2.44792, 2.49841)
+
+[node name="Control" type="Control" parent="Block"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Block/Control"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0.792157, 0.411765, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
 position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_d0op7")
 
-[node name="ColorRect" type="ColorRect" parent="Block"]
+[node name="Block2" type="StaticBody2D" parent="."]
+show_behind_parent = true
+position = Vector2(154, 147)
+scale = Vector2(5.9923, 2.11404)
+
+[node name="Control" type="Control" parent="Block2"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(1, 0.792157, 0.411765, 1)
 
-[node name="Block2" type="StaticBody2D" parent="."]
-position = Vector2(575, 125)
-scale = Vector2(5.9923, 2.11404)
+[node name="ColorRect" type="ColorRect" parent="Block2/Control"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.324545, 0.3159, 0.39, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Block2"]
 position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_d0op7")
 
-[node name="ColorRect" type="ColorRect" parent="Block2"]
+[node name="Block3" type="StaticBody2D" parent="."]
+show_behind_parent = true
+position = Vector2(162, -181)
+scale = Vector2(9.72586, 4.02954)
+
+[node name="Control" type="Control" parent="Block3"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0.324545, 0.3159, 0.39, 1)
 
-[node name="Block3" type="StaticBody2D" parent="."]
-position = Vector2(1107, 193)
-scale = Vector2(9.72586, 4.02954)
+[node name="ColorRect" type="ColorRect" parent="Block3/Control"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.35, 0.343875, 0.3325, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Block3"]
 position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_d0op7")
-
-[node name="ColorRect" type="ColorRect" parent="Block3"]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.35, 0.343875, 0.3325, 1)
