@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5r8c5gdjlj2a"
-path="res://.godot/imported/fill.png-c5eca96d15efcf5818407d22aa891232.ctex"
+uid="uid://dftd1uowc732s"
+path="res://.godot/imported/potions_empty.png-65dae0b3370cd07a021a4c439fcdf52d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HealthBar/fill.png"
-dest_files=["res://.godot/imported/fill.png-c5eca96d15efcf5818407d22aa891232.ctex"]
+source_file="res://assets/Mana/potions_empty.png"
+dest_files=["res://.godot/imported/potions_empty.png-65dae0b3370cd07a021a4c439fcdf52d.ctex"]
 
 [params]
 
