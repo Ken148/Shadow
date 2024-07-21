@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cm0w3c3eks44r" path="res://assets/castle_floor.png" id="10_1qul3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv28e"]
+radius = 8.12672
+height = 25.5151
 
 [sub_resource type="Animation" id="Animation_uwegl"]
 resource_name = "Turn_backwards"
@@ -113,6 +115,8 @@ scale = Vector2(2.70733, 2.70733)
 script = ExtResource("1_hptpn")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(1.47747, 0)
+zoom = Vector2(0.8, 0.8)
 
 [node name="UI" type="Control" parent="Player/Camera2D"]
 layout_mode = 3
@@ -125,10 +129,10 @@ scale = Vector2(0.369367, 3.32428)
 
 [node name="Health_fill" type="TextureProgressBar" parent="Player/Camera2D/UI"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 1.0
-offset_right = 90.0
-offset_bottom = 15.0
+offset_left = -65.9991
+offset_top = -4.11114
+offset_right = 14.0009
+offset_bottom = 9.88886
 scale = Vector2(3.5, 0.4)
 value = 60.0
 texture_under = ExtResource("3_0qkxh")
@@ -144,10 +148,10 @@ texture_progress = ExtResource("4_61yok")
 
 [node name="Abilitys" type="GridContainer" parent="Player/Camera2D/UI"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 33.0
-offset_right = 82.0
-offset_bottom = 49.0
+offset_left = -75.9992
+offset_top = 39.3337
+offset_right = -3.99915
+offset_bottom = 55.3337
 scale = Vector2(2.73802, 0.334951)
 theme_override_constants/h_separation = 2
 columns = 4
@@ -175,7 +179,8 @@ vframes = 6
 frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 1)
+position = Vector2(-2.38419e-07, 1.47747)
+rotation = 0.0248218
 scale = Vector2(1, 1.08)
 shape = SubResource("CapsuleShape2D_sv28e")
 
@@ -230,7 +235,7 @@ offset_bottom = 40.0
 color = Color(0.324545, 0.3159, 0.39, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Block2"]
-position = Vector2(20, 20)
+position = Vector2(20.0256, 19.8672)
 shape = SubResource("RectangleShape2D_d0op7")
 
 [node name="Block3" type="StaticBody2D" parent="TileMap"]
