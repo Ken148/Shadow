@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 500
+var speed = 200
 var velocity_ = Vector2()
 var last_key
 

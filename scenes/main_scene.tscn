@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://bim12nsgu4hmv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hptpn"]
-[ext_resource type="Texture2D" uid="uid://duikg8e0u1sly" path="res://assets/Character_sheet.png" id="1_nqgk4"]
+[ext_resource type="Texture2D" uid="uid://pp12d63sevpi" path="res://assets/Character_sheet.png" id="1_nqgk4"]
 [ext_resource type="Texture2D" uid="uid://b63gobw7xa6nr" path="res://assets/StatusBars/hp_mana_empty.png" id="3_0qkxh"]
 [ext_resource type="Texture2D" uid="uid://bm18u1y3ft6qh" path="res://assets/StatusBars/hp_fill.png" id="3_a62hn"]
 [ext_resource type="Texture2D" uid="uid://dglgsbgvpw4u8" path="res://assets/StatusBars/mana_fill.png" id="4_61yok"]
@@ -14,6 +14,74 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv28e"]
 radius = 6.29136
 height = 25.5151
+
+[sub_resource type="Animation" id="Animation_7bh46"]
+resource_name = "Idle_backward"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 8]
+}
+
+[sub_resource type="Animation" id="Animation_5djui"]
+resource_name = "Idle_forward"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 7]
+}
+
+[sub_resource type="Animation" id="Animation_1matv"]
+resource_name = "Idle_left"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 6]
+}
+
+[sub_resource type="Animation" id="Animation_mwlts"]
+resource_name = "Idle_left"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 5]
+}
 
 [sub_resource type="Animation" id="Animation_uwegl"]
 resource_name = "Turn_backwards"
@@ -77,74 +145,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_mwlts"]
-resource_name = "Idle_left"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 5]
-}
-
-[sub_resource type="Animation" id="Animation_1matv"]
-resource_name = "Idle_left"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 6]
-}
-
-[sub_resource type="Animation" id="Animation_5djui"]
-resource_name = "Idle_forward"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 7]
-}
-
-[sub_resource type="Animation" id="Animation_7bh46"]
-resource_name = "Idle_backward"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 8]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p13g8"]
