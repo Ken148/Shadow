@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hptpn"]
 [ext_resource type="Texture2D" uid="uid://pp12d63sevpi" path="res://assets/Character_sheet.png" id="1_nqgk4"]
-[ext_resource type="Texture2D" uid="uid://b63gobw7xa6nr" path="res://assets/StatusBars/hp_mana_empty.png" id="3_0qkxh"]
+[ext_resource type="Texture2D" uid="uid://cg51ry0kmk78h" path="res://assets/StatusBars/hp_mana_empty.png" id="3_0qkxh"]
 [ext_resource type="Texture2D" uid="uid://bm18u1y3ft6qh" path="res://assets/StatusBars/hp_fill.png" id="3_a62hn"]
 [ext_resource type="Texture2D" uid="uid://dglgsbgvpw4u8" path="res://assets/StatusBars/mana_fill.png" id="4_61yok"]
-[ext_resource type="Texture2D" uid="uid://e5smlptmw0j8" path="res://assets/Abilitys/ability1.png" id="5_5swrj"]
-[ext_resource type="Texture2D" uid="uid://dc444mmcb6gnj" path="res://assets/Abilitys/ability2.png" id="6_u5n0t"]
-[ext_resource type="Texture2D" uid="uid://dja8iamke230q" path="res://assets/Abilitys/ability3.png" id="7_3gwtf"]
-[ext_resource type="Texture2D" uid="uid://dsd042i13udwq" path="res://assets/Abilitys/ability4.png" id="8_jkex3"]
+[ext_resource type="Texture2D" uid="uid://c8dshsmjtydb" path="res://assets/Abilitys/ability1.png" id="5_5swrj"]
+[ext_resource type="Texture2D" uid="uid://bwccy0dj8fh1q" path="res://assets/Abilitys/ability2.png" id="6_u5n0t"]
+[ext_resource type="Texture2D" uid="uid://dkdw1hisnpbj6" path="res://assets/Abilitys/ability3.png" id="7_3gwtf"]
+[ext_resource type="Texture2D" uid="uid://deq1k4o80avy2" path="res://assets/Abilitys/ability4.png" id="8_jkex3"]
 [ext_resource type="Texture2D" uid="uid://1ksrr674qf3y" path="res://assets/Floor/grass_sheet.png" id="11_skmyl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv28e"]
@@ -315,7 +315,7 @@ offset_left = -75.9992
 offset_top = 39.3337
 offset_right = -3.99915
 offset_bottom = 55.3337
-scale = Vector2(2.73802, 0.334951)
+scale = Vector2(2.9, 0.335)
 theme_override_constants/h_separation = 2
 columns = 4
 
@@ -339,7 +339,7 @@ texture_under = ExtResource("8_jkex3")
 texture = ExtResource("1_nqgk4")
 hframes = 5
 vframes = 6
-frame = 3
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-0.369368, 0.738735)
