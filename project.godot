@@ -22,6 +22,10 @@ window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="viewport"
 
+[editor]
+
+movie_writer/fps=300
+
 [input]
 
 move_up={

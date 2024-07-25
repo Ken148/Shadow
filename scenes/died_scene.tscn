@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://msf1kyf56y7k"]
+[gd_scene load_steps=2 format=3 uid="uid://msf1kyf56y7k"]
+
+[ext_resource type="Script" path="res://scenes/back_to_manu.gd" id="1_eb8x3"]
 
 [node name="DiedScene" type="Node2D"]
 
@@ -31,3 +33,4 @@ offset_right = 371.0
 offset_bottom = 263.0
 scale = Vector2(1.11944, 0.998012)
 text = "Back to menu"
+script = ExtResource("1_eb8x3")

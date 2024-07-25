@@ -7,11 +7,8 @@ var last_key
 func get_input():
 	var direction = Vector2()
 	
-	if Input.is_action_pressed("attack"):
-		$Camera2D/UI/Health_fill.value -= 5
-		
 	if $Camera2D/UI/Health_fill.value <= 0:
-		$Camera2D/UI/Health_fill.value -= 5
+		get_tree().change_scene_to_file("res://scenes/died_scene.tscn")
 		
 	if Input.is_action_pressed("move_up"):
 		direction.y -= 1
