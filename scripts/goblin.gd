@@ -1,6 +1,6 @@
 extends Node2D
 
-var speed = 5
+var speed = 300
 var stop_distance = 10
 var player_node: Node2D
 
