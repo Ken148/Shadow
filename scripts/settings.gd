@@ -1,9 +1,8 @@
-extends Node
+extends Node2D
 
 var sens = 100
 
 func _physics_process(delta):
-	sens = $Brightness_slider.value
-
-func _on_pressed():
-	sens = $Brightness_slider.value
+	var slider = get_node("Brightness_slider")
+	sens = slider.value
+	print(sens)

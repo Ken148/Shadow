@@ -87,7 +87,7 @@ script = ExtResource("1_hdk4w")
 texture = ExtResource("2_uewb2")
 hframes = 5
 vframes = 6
-frame = 13
+frame = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 shape = SubResource("CapsuleShape2D_tkdpj")

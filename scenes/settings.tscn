@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhhp6lj2m5kml"]
+[gd_scene load_steps=2 format=3 uid="uid://dhhp6lj2m5kml"]
 
 [ext_resource type="Script" path="res://scripts/back_to_menu.gd" id="1_n4jhh"]
-[ext_resource type="Script" path="res://scripts/settings.gd" id="2_f3iw7"]
 
 [node name="Settings" type="Node2D"]
 
@@ -41,7 +40,6 @@ offset_top = 302.0
 offset_right = 601.0
 offset_bottom = 333.0
 text = "Save changes"
-script = ExtResource("2_f3iw7")
 
 [node name="Brightness_slider" type="HSlider" parent="."]
 offset_left = 36.0
