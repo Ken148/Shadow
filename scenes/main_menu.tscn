@@ -45,7 +45,7 @@ offset_bottom = 227.0
 scale = Vector2(1.21579, 0.821414)
 text = "Exit"
 
-[node name="Start_buton" type="Button" parent="."]
+[node name="Start_button" type="Button" parent="."]
 offset_left = 35.0
 offset_top = 119.0
 offset_right = 81.0
@@ -69,4 +69,4 @@ libraries = {
 
 [connection signal="pressed" from="Options_button" to="Player_sprite" method="_on_options_button_pressed"]
 [connection signal="pressed" from="Exit_button" to="Player_sprite" method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Start_buton" to="Player_sprite" method="_on_start_buton_pressed"]
+[connection signal="pressed" from="Start_button" to="Player_sprite" method="_on_start_buton_pressed"]
