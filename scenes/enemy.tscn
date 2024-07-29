@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3w7momnjj0xf"]
+[gd_scene load_steps=10 format=3 uid="uid://c3w7momnjj0xf"]
 
 [ext_resource type="Script" path="res://scripts/goblin.gd" id="1_hdk4w"]
 [ext_resource type="Texture2D" uid="uid://b4ylhs5vlduy6" path="res://assets/Characters_sheet.png" id="2_uewb2"]
@@ -78,6 +78,8 @@ _data = {
 "facing_right": SubResource("Animation_pox4r")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ktlob"]
+
 [node name="Enemy" type="Node2D"]
 
 [node name="Body" type="CharacterBody2D" parent="."]
@@ -96,3 +98,13 @@ shape = SubResource("CapsuleShape2D_tkdpj")
 libraries = {
 "": SubResource("AnimationLibrary_wjlna")
 }
+
+[node name="Area2D" type="Area2D" parent="Body"]
+disable_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Area2D"]
+scale = Vector2(4.01944, 4.01944)
+shape = SubResource("CircleShape2D_ktlob")
+
+[connection signal="area_shape_exited" from="Body/Area2D" to="Body" method="_on_area_2d_area_shape_exited"]
+[connection signal="body_entered" from="Body/Area2D" to="Body" method="_on_area_2d_body_entered"]

@@ -10,6 +10,7 @@ func get_input():
 	if $Camera2D/UI/Health_fill.value <= 0:
 		get_tree().change_scene_to_file("res://scenes/died_scene.tscn")
 		
+	
 	if Input.is_action_pressed("move_up"):
 		direction.y -= 1
 		last_key = "up"

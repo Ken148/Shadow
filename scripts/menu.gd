@@ -1,6 +1,6 @@
 extends Sprite2D
 
-func _physics_process(delta):
+func _process(delta):
 	var animation_player = $AnimationPlayer
 	if animation_player:
 		animation_player.play("Idle")
