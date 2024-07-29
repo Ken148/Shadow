@@ -69,4 +69,4 @@ libraries = {
 
 [connection signal="pressed" from="Options_button" to="Player_sprite" method="_on_options_button_pressed"]
 [connection signal="pressed" from="Exit_button" to="Player_sprite" method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Start_button" to="Player_sprite" method="_on_start_buton_pressed"]
+[connection signal="pressed" from="Start_button" to="Player_sprite" method="_on_start_button_pressed"]

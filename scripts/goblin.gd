@@ -4,16 +4,14 @@ var speed = 5
 var stop_distance = 10
 var player_node: Node2D
 var enemy_node: Node2D
-@onready var enemy_body_node = $Body
-@onready var AnimationEnemy = enemy_body_node.get_node("AnimationEnemy")
 
+@onready var animationEnemy = $Body/AnimationEnemy
+	
 func _ready():
-	pass
+	player_node = get_tree().current_scene.get_node("Player")
+	enemy_node = self
 	
 func _physics_process(delta):
-	player_node = get_tree().root.get_node("/root/MainScene/Player")
-	enemy_node = get_tree().root.get_node("/root/MainScene/Enemy/Body")
-	
 	var player_position = player_node.position
 	var enemy_position = enemy_node.position
 	var direction = (player_position - enemy_position).normalized()
@@ -26,12 +24,12 @@ func _physics_process(delta):
 			
 	if abs(direction.x) > abs(direction.y):
 		if direction.x > 0:
-			AnimationEnemy.play("facing_right")
+			animationEnemy.play("facing_right")
 		else:
-			AnimationEnemy.play("facing_left")
+			animationEnemy.play("facing_left")
 	else:
 		if direction.y > 0:
-			AnimationEnemy.play("facing_forwards")
+			animationEnemy.play("facing_forwards")
 		else:
-			AnimationEnemy.play("facing_backward")
+			animationEnemy.play("facing_backward")
 
