@@ -4,6 +4,7 @@ extends CharacterBody2D
 var velocity_: Vector2 = Vector2.ZERO
 var last_key: String = ""
 @onready var enemy: CharacterBody2D = get_parent().get_node("Enemy2_0")
+@onready var timer2 = get_tree().current_scene.get_node("Timer2")
 
 func get_input():
 	var direction = Vector2.ZERO
@@ -56,9 +57,20 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _ready():
+	timer2.start()
+	timer2.one_shot = false
+	timer2.wait_time = 5.0 
+	timer2.connect("timeout", Callable(self, "on_timer_timeout2"))
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	$PlayerAnimator.play("Player_animations/Idle_forward")
 
 func enemy_take_damage(target: CharacterBody2D):
 	if target.has_method("take_damage"):
 		target.take_damage(20)
+		
+func _on_area_2d_body_entered(body):
+	if(body.is_in_group("Goblin")):
+		enemy = body
+
+func on_timer_timeout2():
+	$Camera2D/UI/Health_fill.value += 10
