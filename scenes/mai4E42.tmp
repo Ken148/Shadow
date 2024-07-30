@@ -349,7 +349,7 @@ layout_mode = 0
 offset_top = 7.0
 offset_right = 80.0
 offset_bottom = 14.0
-value = 100.0
+value = 75.0
 texture_progress = ExtResource("4_61yok")
 
 [node name="Abilitys" type="GridContainer" parent="Player/Camera2D/UI"]
@@ -382,7 +382,6 @@ texture_under = ExtResource("8_jkex3")
 texture = ExtResource("9_g6q0i")
 hframes = 10
 vframes = 10
-frame = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-0.369368, 0.738735)
@@ -402,13 +401,13 @@ libraries = {
 scale = Vector2(3.03194, 3.03194)
 shape = SubResource("CircleShape2D_emmhk")
 
-[node name="Enemy2_0" parent="." instance=ExtResource("10_puv6x")]
-position = Vector2(313, 95)
-scale = Vector2(2.23239, 2.23239)
-
 [node name="Enemy2_1" parent="." instance=ExtResource("10_puv6x")]
 position = Vector2(370, -311)
 scale = Vector2(1.95801, 1.95801)
+
+[node name="Enemy2_0" parent="." instance=ExtResource("10_puv6x")]
+position = Vector2(313, 95)
+scale = Vector2(2.23239, 2.23239)
 
 [node name="TileMap" type="TileMap" parent="."]
 show_behind_parent = true

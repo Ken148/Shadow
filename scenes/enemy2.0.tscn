@@ -1,20 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpu67upogoj4k"]
+[gd_scene load_steps=6 format=3 uid="uid://cpu67upogoj4k"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_d22k6"]
-[ext_resource type="Texture2D" uid="uid://b4ylhs5vlduy6" path="res://assets/Characters_sheet.png" id="1_dphv5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bjf4q"]
+load_path = "res://.godot/imported/Characters_sheet.png-82b13656a02260375685985d2131fa3c.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh4yv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lquuj"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sb43"]
+
 [node name="Enemy2_0" type="CharacterBody2D" groups=["Goblin"]]
 script = ExtResource("1_d22k6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_dphv5")
-hframes = 5
-vframes = 6
-frame = 12
+texture = SubResource("CompressedTexture2D_bjf4q")
+hframes = 10
+vframes = 10
+frame = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.877566, 0.877566)
@@ -28,5 +32,25 @@ shape = SubResource("CapsuleShape2D_qh4yv")
 scale = Vector2(3.40751, 3.40751)
 shape = SubResource("CircleShape2D_lquuj")
 
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+scale = Vector2(8.57311, 8.57311)
+shape = SubResource("CircleShape2D_0sb43")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0.14902, 0.215686, 1)
+offset_left = -11.0
+offset_top = -21.0
+offset_right = 150.0
+offset_bottom = 12.0
+scale = Vector2(0.138164, 0.138164)
+theme_override_colors/font_color = Color(0.601479, 0.807448, 0.407692, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+value = 100.0
+show_percentage = false
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

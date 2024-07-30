@@ -5,7 +5,9 @@ extends CharacterBody2D
 var player_position: Vector2
 @onready var player: Node2D = get_parent().get_node("Player")
 @onready var timer = get_tree().current_scene.get_node("Timer")
+@onready var hp_bar_enemy = get_node("ProgressBar")
 @onready var area: Area2D = $Area2D
+var can_be_seen
 
 func _ready():
 	timer.one_shot = false
@@ -15,12 +17,15 @@ func _ready():
 	area.connect("body_exited", Callable(self, "_on_area_body_exited"))
 
 func _physics_process(delta):
-	player_position = player.position
-	var direction = (player_position - position).normalized()
+	if(player.is_in_group("Player") and can_be_seen):
+		player_position = player.position
+		var direction = (player_position - position).normalized()
 
-	if position.distance_to(player_position) > 80:
-		velocity = direction * speed
-		move_and_slide()
+		if position.distance_to(player_position) > 80:
+			velocity = direction * speed
+			move_and_slide()
+	if (player.is_in_group("Player") and can_be_seen == false):
+		velocity = Vector2.ZERO
 
 func _on_area_body_entered(body):
 	if body.is_in_group("Player"):
@@ -29,7 +34,8 @@ func _on_area_body_entered(body):
 func _on_Timer_timeout():
 	if player.is_in_group("Player"):
 		var player_hp = get_tree().current_scene.get_node("Player/Camera2D/UI/Health_fill")
-		player_hp.value -= 10
+		if(!Input.is_action_pressed("block")):
+			player_hp.value -= 10
 		timer.start()
 
 func _on_area_body_exited(body):
@@ -38,5 +44,14 @@ func _on_area_body_exited(body):
 	
 func take_damage(damage : int):
 	enemy_hp -= damage
+	hp_bar_enemy.value -= damage
 	if(enemy_hp <= 0):
 		self.queue_free()
+
+func _on_area_2d_2_body_entered(body):
+	if(body.is_in_group("Player")):
+		can_be_seen = true
+
+func _on_area_2d_2_body_exited(body):
+	if(body.is_in_group("Player")):
+		can_be_seen = false
