@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dkdw1hisnpbj6" path="res://assets/Abilitys/ability3.png" id="7_3gwtf"]
 [ext_resource type="Texture2D" uid="uid://deq1k4o80avy2" path="res://assets/Abilitys/ability4.png" id="8_jkex3"]
 [ext_resource type="Texture2D" uid="uid://b4ylhs5vlduy6" path="res://assets/Characters_sheet.png" id="9_g6q0i"]
+[ext_resource type="PackedScene" uid="uid://cpu67upogoj4k" path="res://scenes/enemy2.0.tscn" id="10_puv6x"]
 [ext_resource type="Texture2D" uid="uid://1ksrr674qf3y" path="res://assets/Floor/grass_sheet.png" id="11_skmyl"]
-[ext_resource type="PackedScene" uid="uid://c3w7momnjj0xf" path="res://scenes/enemy.tscn" id="11_tnolc"]
-[ext_resource type="Script" path="res://scripts/goblin.gd" id="12_56ili"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sv28e"]
 radius = 6.29136
@@ -160,6 +159,8 @@ _data = {
 "Turn_left": SubResource("Animation_lve5e"),
 "Turn_right": SubResource("Animation_5mi1e")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emmhk"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yr00c"]
 tile_data = PackedInt32Array(0, 196640, 1, 65536, 262176, 0, 131072, 262176, 0, 196608, 131104, 1, 1, 262176, 1, 65537, 32, 2, 131073, 32, 2, 196609, 327712, 1, 2, 262176, 1, 65538, 32, 2, 131074, 32, 2, 196610, 327712, 1, 3, 32, 1, 65539, 327712, 0, 131075, 327712, 0, 196611, 65568, 1)
@@ -363,10 +364,15 @@ libraries = {
 "Player_animations": SubResource("AnimationLibrary_p13g8")
 }
 
-[node name="Enemy" parent="." instance=ExtResource("11_tnolc")]
-position = Vector2(90, -127)
-scale = Vector2(2.32776, 2.32776)
-script = ExtResource("12_56ili")
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+scale = Vector2(3.03194, 3.03194)
+shape = SubResource("CircleShape2D_emmhk")
+
+[node name="Enemy2_0" parent="." instance=ExtResource("10_puv6x")]
+position = Vector2(75, -125)
+scale = Vector2(2.23239, 2.23239)
 
 [node name="TileMap" type="TileMap" parent="."]
 show_behind_parent = true
