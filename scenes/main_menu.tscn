@@ -60,7 +60,7 @@ scale = Vector2(1.20992, 0.817448)
 text = "Start"
 
 [node name="Player_sprite" type="Sprite2D" parent="."]
-position = Vector2(406, 31)
+position = Vector2(329, 267)
 scale = Vector2(4.98904, 4.98904)
 texture = SubResource("CompressedTexture2D_bjf4q")
 hframes = 10
