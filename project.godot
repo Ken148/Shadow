@@ -13,6 +13,9 @@ config_version=5
 config/name="ShadowAlcemy"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://assets/Icon/LOGO.ico"
+config/macos_native_icon="res://assets/Icon/LOGO.ico"
+config/windows_native_icon="res://assets/Icon/LOGO.ico"
 
 [display]
 
