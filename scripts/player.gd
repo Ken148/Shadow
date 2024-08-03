@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 200.0
 var velocity_: Vector2 = Vector2.ZERO
-var last_key: String = ""
+var last_key: String = "down"
 @onready var enemy: CharacterBody2D = get_parent().get_node("Enemy2_0")
 @onready var timer2 = get_tree().current_scene.get_node("Timer2")
 var in_area = false
@@ -14,6 +14,7 @@ func get_input():
 	if $Camera2D/UI/Health_fill.value <= 0:
 		get_tree().change_scene_to_file("res://scenes/died_scene.tscn")
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		attacking.instance()
 
 	if Input.is_action_pressed("move_up"):
 		direction.y -= 1
@@ -52,24 +53,23 @@ func get_input():
 			"down":
 				$PlayerAnimator.play("Player_animations/Idle_forward")
 
-	if Input.is_action_just_pressed("attack") and not attacking:
+	if Input.is_action_just_pressed("attack") and not attacking and !Input.is_action_pressed("block"):
 		attacking = true
 		match last_key:
 			"right":
-				if $PlayerAnimator.has_animation("Player_animations/Attack_right"):
-					$PlayerAnimator.play("Player_animations/Attack_right")
+				$PlayerAnimator.play("Player_animations/Attack_right")
 			"left":
-				if $PlayerAnimator.has_animation("Player_animations/Attack_left"):
-					$PlayerAnimator.play("Player_animations/Attack_left")
+				$PlayerAnimator.play("Player_animations/Attack_left")
 			"up":
-				if $PlayerAnimator.has_animation("Player_animations/Attack_left"):
-					$PlayerAnimator.play("Player_animations/Attack_left")
+				$PlayerAnimator.play("Player_animations/Attack_left")
 			"down":
-				if $PlayerAnimator.has_animation("Player_animations/Attack_right"):
-					$PlayerAnimator.play("Player_animations/Attack_right")
-
-		if enemy.is_in_group("Goblin") and in_area:
-			enemy_take_damage(enemy)
+				$PlayerAnimator.play("Player_animations/Attack_right")
+			_:
+				print("no last key found")
+				
+		if(enemy != null):
+			if enemy.is_in_group("Goblin") and in_area:
+				enemy_take_damage(enemy)
 
 	if Input.is_action_just_pressed("escape"):
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
@@ -81,15 +81,13 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _ready():
+	$PlayerAnimator.play("Player_animations/Idle_forward")
+	$PlayerAnimator.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	timer2.start()
 	timer2.one_shot = false
-	timer2.wait_time = 5.0 
+	timer2.wait_time = 2.5
 	timer2.connect("timeout", Callable(self, "on_timer_timeout2"))
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	$PlayerAnimator.play("Player_animations/Idle_forward")
-
-	$PlayerAnimator.disconnect("animation_finished", Callable(self, "_on_animation_finished"))
-	$PlayerAnimator.connect("animation_finished", Callable(self, "_on_animation_finished"))
 
 func enemy_take_damage(target: CharacterBody2D):
 	if target.has_method("take_damage"):
@@ -102,6 +100,7 @@ func _on_area_2d_body_entered(body):
 
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("Goblin"):
+		enemy = null
 		in_area = false
 
 func on_timer_timeout2():
@@ -113,3 +112,14 @@ func _on_animation_finished(anim_name: String):
 		anim_name == "Player_animations/Attack_up" or
 		anim_name == "Player_animations/Attack_down"):
 		attacking = false
+
+
+func _on_area_2d_2_body_entered(body):
+	if body.is_in_group("Goblin"):
+		enemy = body
+		in_area = true
+
+func _on_area_2d_2_body_exited(body):
+	if body.is_in_group("Goblin"):
+		enemy = null
+		in_area = false
