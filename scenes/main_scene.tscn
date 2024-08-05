@@ -122,7 +122,7 @@ pattern_12 = SubResource("TileMapPattern_ghv6o")
 [node name="MainScene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_dpkbj")]
-position = Vector2(15, -97)
+position = Vector2(-14, -239)
 
 [node name="Timer" type="Timer" parent="."]
 

@@ -29,7 +29,6 @@ func _physics_process(delta):
 			move_and_slide()
 	if (player.is_in_group("Player") and can_be_seen == false):
 		velocity = Vector2.ZERO
-	
 
 func _on_Timer_timeout():
 		var player_hp = get_tree().current_scene.get_node("Player/Camera2D/UI/Health_fill")
