@@ -1,24 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://cpu67upogoj4k"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_d22k6"]
-[ext_resource type="Script" path="res://scripts/ray.gd" id="2_6ibol"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bjf4q"]
 load_path = "res://.godot/imported/Characters_sheet.png-82b13656a02260375685985d2131fa3c.ctex"
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh4yv"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jeg8n"]
+radius = 1.13483
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lquuj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0sb43"]
 
-[node name="Enemy2_0" type="CharacterBody2D" groups=["Goblin"]]
-script = ExtResource("1_d22k6")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a32sv"]
+size = Vector2(80, 48)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(-85, 0)
-collide_with_areas = true
-script = ExtResource("2_6ibol")
+[node name="Enemy2_0" type="CharacterBody2D" groups=["Goblin"]]
+z_index = 2
+script = ExtResource("1_d22k6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("CompressedTexture2D_bjf4q")
@@ -27,8 +26,9 @@ vframes = 10
 frame = 22
 
 [node name="Main_body_collider" type="CollisionShape2D" parent="."]
-scale = Vector2(1.37425, 1.37425)
-shape = SubResource("CapsuleShape2D_qh4yv")
+position = Vector2(0, 9)
+scale = Vector2(6.5, 6.5)
+shape = SubResource("CircleShape2D_jeg8n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -39,7 +39,6 @@ scale = Vector2(3.95822, 3.95822)
 shape = SubResource("CircleShape2D_lquuj")
 
 [node name="Area2D2" type="Area2D" parent="."]
-visible = false
 
 [node name="See_range" type="CollisionShape2D" parent="Area2D2"]
 scale = Vector2(8.57311, 8.57311)
@@ -57,7 +56,15 @@ theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
 value = 100.0
 show_percentage = false
 
+[node name="Area2D3" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_a32sv")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]
+[connection signal="body_entered" from="Area2D3" to="." method="_on_area_2d_3_body_entered"]
+[connection signal="body_exited" from="Area2D3" to="." method="_on_area_2d_3_body_exited"]

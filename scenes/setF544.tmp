@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhhp6lj2m5kml"]
+[gd_scene load_steps=3 format=3 uid="uid://dhhp6lj2m5kml"]
 
 [ext_resource type="Script" path="res://scripts/back_to_menu.gd" id="1_n4jhh"]
+[ext_resource type="Script" path="res://scripts/settings.gd" id="2_ctx1s"]
 
 [node name="Settings" type="Node2D"]
 
@@ -9,8 +10,7 @@ offset_left = 55.0
 offset_top = 76.0
 offset_right = 135.0
 offset_bottom = 99.0
-text = "Brightness
-"
+text = "Sensitivity"
 
 [node name="Settings_label" type="Label" parent="."]
 offset_left = 33.0
@@ -19,6 +19,13 @@ offset_right = 95.0
 offset_bottom = 40.0
 scale = Vector2(1.47451, 1.47451)
 text = "SETTINGS"
+
+[node name="Brightness_label" type="Label" parent="."]
+offset_left = 54.0
+offset_top = 129.0
+offset_right = 137.0
+offset_bottom = 152.0
+text = "Brightness"
 
 [node name="Back_button" type="Button" parent="."]
 offset_left = 38.0
@@ -36,6 +43,14 @@ offset_bottom = 333.0
 text = "Save changes"
 
 [node name="Brightness_slider" type="HSlider" parent="."]
+offset_left = 36.0
+offset_top = 159.0
+offset_right = 219.0
+offset_bottom = 175.0
+value = 50.0
+script = ExtResource("2_ctx1s")
+
+[node name="Sens_slider" type="HSlider" parent="."]
 offset_left = 36.0
 offset_top = 104.0
 offset_right = 219.0

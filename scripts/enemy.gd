@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
+@export var speed: float = 50.0
 @export var enemy_hp: float = 100.0
 var player_position: Vector2
 @onready var player: CharacterBody2D = get_tree().current_scene.get_node("Player")
@@ -20,15 +20,21 @@ func _ready():
 	area.connect("body_exited", Callable(self, "_on_area_body_exited"))
 
 func _physics_process(delta):
-	if(player.is_in_group("Player") and can_be_seen):
+	if player.is_in_group("Player") and can_be_seen:
 		player_position = player.position
 		var direction = (player_position - position).normalized()
-
+		
 		if position.distance_to(player_position) > 80:
 			velocity = direction * speed
 			move_and_slide()
-	if (player.is_in_group("Player") and can_be_seen == false):
+			velocity = velocity
+		else:
+			velocity = Vector2.ZERO
+	else:
 		velocity = Vector2.ZERO
+	
+	if velocity != Vector2.ZERO:
+		move_and_slide()
 
 func _on_Timer_timeout():
 		var player_hp = get_tree().current_scene.get_node("Player/Camera2D/UI/Health_fill")
@@ -41,7 +47,15 @@ func take_damage(damage : int):
 	hp_bar_enemy.value -= damage
 	if(enemy_hp <= 0):
 		self.queue_free()
+		
+func _on_area_2d_body_entered(body):
+	if (body.is_in_group("Player")):
+		is_in_area = true
 
+func _on_area_2d_body_exited(body):
+	if (body.is_in_group("Player")):
+		is_in_area = false
+		
 func _on_area_2d_2_body_entered(body):
 	if(body.is_in_group("Player")):
 		can_be_seen = true
@@ -50,10 +64,10 @@ func _on_area_2d_2_body_exited(body):
 	if(body.is_in_group("Player")):
 		can_be_seen = false
 
-func _on_area_2d_body_entered(body):
-	if (body.is_in_group("Player")):
-		is_in_area = true
+func _on_area_2d_3_body_entered(body):
+	if (body.is_in_group("player_col")):
+		player.z_index = 2
 
-func _on_area_2d_body_exited(body):
-	if (body.is_in_group("Player")):
-		is_in_area = false
+func _on_area_2d_3_body_exited(body):
+	if (body.is_in_group("player_col")):
+		player.z_index = 3
