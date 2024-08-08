@@ -10,9 +10,9 @@ func _ready():
 func _physics_process(delta):
 	position += direction * speed * delta
 
-func _on_area_2d_body_entered(body):
-	if body.is_in_group("Goblin"):
-		if body.is_inside_tree():
-			if body.has_method("take_damage"):
-				body.take_damage(20)
+func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if area.is_in_group("Goblin"): 
+		var parent = area.get_parent()
+		if parent.has_method("take_damage"):
+			parent.take_damage(20) 
 		queue_free()

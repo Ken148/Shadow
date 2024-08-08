@@ -5,16 +5,15 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_12lcn"]
 
-[node name="Bullet" type="Node2D"]
+[node name="Bullet" type="Node2D" groups=["bullet"]]
 script = ExtResource("1_dpkwb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2.24094, 2.24094)
 texture = ExtResource("1_2cna1")
 
 [node name="Area2D" type="Area2D" parent="." groups=["bullet"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["bullet"]]
 shape = SubResource("CircleShape2D_12lcn")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]

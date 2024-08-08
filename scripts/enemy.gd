@@ -1,30 +1,29 @@
 extends CharacterBody2D
 
-@export var speed: float = 50.0
+@export var speed: float = 20.0
 @export var enemy_hp: float = 100.0
 var player_position: Vector2
 @onready var player: CharacterBody2D = get_tree().current_scene.get_node("Player")
 @onready var timer = get_tree().current_scene.get_node("Timer")
 @onready var hp_bar_enemy = get_node("ProgressBar")
-@onready var area: Area2D = $Area2D
+var index
 var can_be_seen
 var is_in_area = false
 
 func _ready():
 	var attacking_player = player.attacking
+	index = player.z_index
 	timer.start()
 	timer.one_shot = false
 	timer.wait_time = 2.0 
 	timer.connect("timeout", Callable(self, "_on_Timer_timeout"))
-	area.connect("body_entered", Callable(self, "_on_area_body_entered"))
-	area.connect("body_exited", Callable(self, "_on_area_body_exited"))
 
 func _physics_process(delta):
-	if player.is_in_group("Player") and can_be_seen:
+	if player.is_in_group("Player") and can_be_seen == true:
 		player_position = player.position
 		var direction = (player_position - position).normalized()
 		
-		if position.distance_to(player_position) > 80:
+		if position.distance_to(player_position) > 30:
 			velocity = direction * speed
 			move_and_slide()
 			velocity = velocity
@@ -55,19 +54,23 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if (body.is_in_group("Player")):
 		is_in_area = false
-		
-func _on_area_2d_2_body_entered(body):
-	if(body.is_in_group("Player")):
-		can_be_seen = true
 
-func _on_area_2d_2_body_exited(body):
-	if(body.is_in_group("Player")):
-		can_be_seen = false
+func _on_area_2d_3_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if area != null:
+		if (area.is_in_group("player_col")):
+			player.z_index = 2
 
-func _on_area_2d_3_body_entered(body):
-	if (body.is_in_group("player_col")):
-		player.z_index = 2
+func _on_area_2d_3_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+	if area != null:
+		if (area.is_in_group("player_col")):
+			player.z_index = 3
 
-func _on_area_2d_3_body_exited(body):
-	if (body.is_in_group("player_col")):
-		player.z_index = 3
+func _on_can_be_seen_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if area != null:
+		if(area.is_in_group("Player")):
+			can_be_seen = true
+
+func _on_can_be_seen_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+	if area != null:
+		if(area.is_in_group("Player")):
+			can_be_seen = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://yvnkiw5563vr"]
+[gd_scene load_steps=24 format=3 uid="uid://yvnkiw5563vr"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_50mfd"]
 [ext_resource type="Texture2D" uid="uid://cg51ry0kmk78h" path="res://assets/StatusBars/hp_mana_empty.png" id="2_qdw87"]
@@ -194,33 +194,35 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_emmhk"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l40mv"]
+height = 32.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 3
 position = Vector2(-78, -160)
-scale = Vector2(2.70733, 2.70733)
 script = ExtResource("1_50mfd")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 3
-position = Vector2(1.47747, 0)
-zoom = Vector2(0.8, 0.8)
+position = Vector2(13, -7)
+zoom = Vector2(2.3, 2.3)
 
 [node name="UI" type="Control" parent="Camera2D"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -118.198
-offset_top = -66.4862
-offset_right = 521.802
-offset_bottom = -26.4862
+offset_left = -129.721
+offset_top = -59.4862
+offset_right = 510.279
+offset_bottom = -19.4862
 scale = Vector2(0.369367, 3.32428)
 
 [node name="Health_fill" type="TextureProgressBar" parent="Camera2D/UI"]
 z_index = 3
 layout_mode = 0
-offset_left = -65.9991
-offset_top = -4.11114
-offset_right = 14.0009
-offset_bottom = 9.88886
+offset_left = -14.2933
+offset_top = -4.366
+offset_right = 65.7067
+offset_bottom = 9.634
 scale = Vector2(3.5, 0.4)
 value = 100.0
 texture_under = ExtResource("2_qdw87")
@@ -237,10 +239,10 @@ texture_progress = ExtResource("4_2yjfc")
 
 [node name="Abilitys" type="GridContainer" parent="Camera2D/UI"]
 layout_mode = 0
-offset_left = -75.9992
-offset_top = 39.3337
-offset_right = -3.99915
-offset_bottom = 55.3337
+offset_left = -11.586
+offset_top = 35.041
+offset_right = 60.4141
+offset_bottom = 51.041
 scale = Vector2(2.9, 0.335)
 theme_override_constants/h_separation = 2
 columns = 4
@@ -301,28 +303,44 @@ hframes = 10
 vframes = 10
 frame = 13
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player_col"]]
+[node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11.4504)
 scale = Vector2(0.85, 0.85)
 shape = SubResource("CircleShape2D_lnfss")
 one_way_collision_margin = 0.0
 
 [node name="PlayerAnimator" type="AnimationPlayer" parent="."]
-root_node = NodePath("../CollisionShape2D")
+root_node = NodePath("../Body")
 libraries = {
 "Player_animations": SubResource("AnimationLibrary_p13g8")
 }
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Interaction_range" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction_range"]
 scale = Vector2(3.03194, 3.03194)
 shape = SubResource("CircleShape2D_emmhk")
+
+[node name="Behind_front_anim" type="Area2D" parent="." groups=["player_col"]]
+visible = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Behind_front_anim"]
+visible = false
+position = Vector2(0, 19.5765)
+scale = Vector2(0.85, 0.85)
+shape = SubResource("CircleShape2D_lnfss")
+one_way_collision_margin = 0.0
+
+[node name="Area2D" type="Area2D" parent="." groups=["Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_l40mv")
 
 [connection signal="pressed" from="Camera2D/UI/Abilitys/Ability_1/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Camera2D/UI/Abilitys/Ability_2/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Camera2D/UI/Abilitys/Ability_3/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Camera2D/UI/Abilitys/Ability_4/Button" to="." method="_on_button_pressed"]
 [connection signal="animation_finished" from="PlayerAnimator" to="." method="_on_player_animator_animation_finished"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Interaction_range" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Interaction_range" to="." method="_on_area_2d_body_exited"]

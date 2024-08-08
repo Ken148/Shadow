@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 200.0 
+@export var speed: float = 100.0 
 @export var speed_of_bullet: float = 350.0
 var velocity_: Vector2 = Vector2.ZERO
 var last_key: String = "down"
