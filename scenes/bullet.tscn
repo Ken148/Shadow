@@ -9,6 +9,7 @@
 script = ExtResource("1_dpkwb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_2cna1")
 
 [node name="Area2D" type="Area2D" parent="." groups=["bullet"]]

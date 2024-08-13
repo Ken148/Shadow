@@ -5,6 +5,7 @@
 [node name="Settings" type="Node2D"]
 
 [node name="Sens_label" type="Label" parent="."]
+texture_filter = 1
 offset_left = 55.0
 offset_top = 76.0
 offset_right = 135.0
@@ -13,6 +14,7 @@ text = "Brightness
 "
 
 [node name="Settings_label" type="Label" parent="."]
+texture_filter = 1
 offset_left = 33.0
 offset_top = 17.0
 offset_right = 95.0
@@ -21,6 +23,7 @@ scale = Vector2(1.47451, 1.47451)
 text = "SETTINGS"
 
 [node name="Back_button" type="Button" parent="."]
+texture_filter = 1
 offset_left = 38.0
 offset_top = 303.0
 offset_right = 153.0
@@ -29,6 +32,7 @@ text = "Back to menu"
 script = ExtResource("1_n4jhh")
 
 [node name="Save_button" type="Button" parent="."]
+texture_filter = 1
 offset_left = 489.0
 offset_top = 302.0
 offset_right = 601.0
@@ -36,6 +40,7 @@ offset_bottom = 333.0
 text = "Save changes"
 
 [node name="Brightness_slider" type="HSlider" parent="."]
+texture_filter = 1
 offset_left = 36.0
 offset_top = 104.0
 offset_right = 219.0

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 20.0
+@export var speed: float = 5.0
 @export var enemy_hp: float = 100.0
 var player_position: Vector2
 @onready var player: CharacterBody2D = get_tree().current_scene.get_node("Player")
