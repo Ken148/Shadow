@@ -8,8 +8,17 @@ var last_direction: Vector2 = Vector2.DOWN
 @onready var enemy: CharacterBody2D = get_parent().get_node("Enemy2_0")
 @onready var timer2 = get_tree().current_scene.get_node("Timer2")
 @onready var timer3 = get_tree().current_scene.get_node("Timer3")
-@onready var ability_timer = $Timer
+@onready var ability_timer = $Ability_timer
+@onready var ult_timer = $Ult_timer
 @onready var interaction_area = $Attack_range_1/CollisionPolygon2D
+@onready var attack_range_1 = $Attack_range_1
+
+var close = false
+var far = false
+var very_far = false
+var slice_attack = false
+
+var wait_sec = 0
 var mouse_pos: Vector2
 var bullet_scene = preload("res://scenes/bullet.tscn")
 var in_area = false
@@ -32,8 +41,10 @@ func _ready():
 		t = 0.0
 		shooting = false
 		in_game = false
+
 	$PlayerAnimator.play("Player_animations/Idle_forward")
 	$PlayerAnimator.connect("animation_finished", Callable(self, "_on_animation_finished"))
+
 	timer2.start()
 	timer2.one_shot = false
 	timer2.wait_time = 2.5
@@ -106,9 +117,15 @@ func _input(event):
 		mode = 2
 		
 	if Input.is_action_just_pressed("3"):
-		ability_timer.start()
-		enemy.speed = 0
-		mode = 3
+		if enemy != null:
+			ability_timer.start()
+			enemy.speed = 0
+			mode = 3
+		
+	if Input.is_action_just_pressed("4"):
+		ult_timer.start()
+		mode = 4
+		
 	if Input.is_action_pressed("sprint"):
 		speed = 130.0 
 	
@@ -171,6 +188,7 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("attack"):
 		if mode == 1:
+			attack_range_1.monitoring = true
 			attacking = true
 			match last_key:
 				"right":
@@ -186,9 +204,11 @@ func _input(event):
 
 			if enemy != null and enemy.is_in_group("Goblin") and in_area:
 				enemy_take_damage(enemy)
+				slice_attack = true
+				attacking = false
 
 		if mode == 2:
-			if in_game == false:
+			if not in_game:
 				if get_tree().current_scene.name == "MainScene":
 					mouse_pos = get_global_mouse_position()
 					start_position = position
@@ -199,6 +219,12 @@ func _input(event):
 		if mode == 3:
 			if ability_recharged:
 				position = new_position 
+				
+		if mode == 4:
+			ult_timer.start()
+			attack_range_1.monitoring = false
+			if enemy != null:
+				enemy_take_damage(enemy)
 
 func on_timer_timeout2():
 	"""$Camera2D/UI/Health_fill.value += 10"""
@@ -210,8 +236,18 @@ func on_timer_timeout3():
 			in_game = false
 
 func enemy_take_damage(target: CharacterBody2D):
-	if target.has_method("take_damage"):
-		target.take_damage(20)
+	if target != null and target.has_method("take_damage"):
+		if mode == 1:
+			if slice_attack:
+				target.take_damage(20)
+				slice_attack = false
+		if mode == 4:
+			if close:
+				target.take_damage(50)
+			elif far:
+				target.take_damage(25)
+			elif very_far:
+				target.take_damage(10)
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Goblin"):
@@ -233,3 +269,38 @@ func _on_timer_timeout():
 	else:
 		enemy.speed = 10
 	ability_recharged = false
+
+func _on_attack_range_2_body_entered(body):
+	if body != null and body.is_in_group("Goblin"):
+		close = true
+		far = false
+		very_far = false
+
+func _on_attack_range_3_body_entered(body):
+	if body != null and body.is_in_group("Goblin"):
+		far = true
+		close = false
+		very_far = false
+
+func _on_attack_range_4_body_entered(body):
+	if body != null and body.is_in_group("Goblin"):
+		very_far = true
+		far = false
+		close = false
+
+func _on_attack_range_2_body_exited(body):
+	if body != null and body.is_in_group("Goblin"):
+		close = false
+
+func _on_attack_range_3_body_exited(body):
+	if body != null and body.is_in_group("Goblin"):
+		far = false
+
+func _on_attack_range_4_body_exited(body):
+	if body != null and body.is_in_group("Goblin"):
+		very_far = false
+
+func _on_timer_2_timeout():
+	wait_sec += 1
+	if wait_sec == 5:
+		ult_timer.stop()
