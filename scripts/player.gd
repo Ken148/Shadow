@@ -9,9 +9,10 @@ var last_direction: Vector2 = Vector2.DOWN
 @onready var timer2 = get_tree().current_scene.get_node("Timer2")
 @onready var timer3 = get_tree().current_scene.get_node("Timer3")
 @onready var ability_timer = $Ability_timer
-@onready var ult_timer = $Ult_timer
 @onready var interaction_area = $Attack_range_1/CollisionPolygon2D
 @onready var attack_range_1 = $Attack_range_1
+@onready var ability_3 = $Ability_3_side
+@onready var ability_3_diagonal = $Ability_3_diagonal
 
 var close = false
 var far = false
@@ -32,6 +33,7 @@ var in_game = false
 var new_position: Vector2
 var direction_vector: Vector2 = Vector2.ZERO
 var ability_recharged = true
+var ability_in_area = false
 
 func _ready():
 	if get_tree().current_scene.name == "MainScene":
@@ -117,13 +119,13 @@ func _input(event):
 		mode = 2
 		
 	if Input.is_action_just_pressed("3"):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		if enemy != null:
 			ability_timer.start()
 			enemy.speed = 0
 			mode = 3
 		
 	if Input.is_action_just_pressed("4"):
-		ult_timer.start()
 		mode = 4
 		
 	if Input.is_action_pressed("sprint"):
@@ -172,17 +174,61 @@ func _input(event):
 		if not attacking:
 			$PlayerAnimator.play("Player_animations/Turn_left")
 	
+	if Input.is_action_pressed("move_up") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down")):
+		ability_3.rotation = deg_to_rad(270)
+		ability_3_diagonal.visible = false
+		ability_3.visible = true
+	
+	if Input.is_action_pressed("move_down") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right")):
+		ability_3.rotation = deg_to_rad(90)
+		ability_3_diagonal.visible = false
+		ability_3.visible = true
+		
+	if Input.is_action_pressed("move_right") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
+		ability_3.rotation = deg_to_rad(0)
+		ability_3_diagonal.visible = false
+		ability_3.visible = true
+	
+	if Input.is_action_pressed("move_left") and not (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
+		ability_3.rotation = deg_to_rad(180)
+		ability_3_diagonal.visible = false
+		ability_3.visible = true
+	
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_up"):
 		last_key = "up_left"
+		ability_3.visible = false
+		ability_3_diagonal.visible = true
+		ability_3_diagonal.monitoring = true
+		ability_3_diagonal.rotation = deg_to_rad(180)
+	else:
+		ability_3_diagonal.monitoring = false
 		
 	if Input.is_action_pressed("move_right") and Input.is_action_pressed("move_up"):
 		last_key = "up_right"
+		ability_3.visible = false
+		ability_3_diagonal.visible = true
+		ability_3_diagonal.monitoring = true
+		ability_3_diagonal.rotation = deg_to_rad(270)
+	else: 
+		ability_3_diagonal.monitoring = false
 		
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_down"):
 		last_key = "down_left"
+		ability_3.visible = false
+		ability_3_diagonal.visible = true
+		ability_3_diagonal.monitoring = true
+		ability_3_diagonal.rotation = deg_to_rad(90)
+	else: 
+		ability_3_diagonal.monitoring = false
 		
 	if Input.is_action_pressed("move_right") and Input.is_action_pressed("move_down"):
 		last_key = "down_right"
+		ability_3.visible = false
+		ability_3_diagonal.visible = true
+		ability_3_diagonal.monitoring = true
+		ability_3_diagonal.rotation = deg_to_rad(0)
+	else: 
+		ability_3_diagonal.monitoring = false
 		
 	velocity_ = direction.normalized() * speed
 	
@@ -198,6 +244,14 @@ func _input(event):
 				"up":
 						$PlayerAnimator.play("Player_animations/Attack_left")
 				"down":
+						$PlayerAnimator.play("Player_animations/Attack_right")
+				"up_left":
+						$PlayerAnimator.play("Player_animations/Attack_left")
+				"up_right":
+						$PlayerAnimator.play("Player_animations/Attack_right")
+				"down_left":
+						$PlayerAnimator.play("Player_animations/Attack_left")
+				"down_right":
 						$PlayerAnimator.play("Player_animations/Attack_right")
 				_:
 					print("no last key found")
@@ -216,12 +270,11 @@ func _input(event):
 					t = 0.0
 					shooting = true
 					
-		if mode == 3:
+		if mode == 3 and ability_in_area:
 			if ability_recharged:
 				position = new_position 
 				
 		if mode == 4:
-			ult_timer.start()
 			attack_range_1.monitoring = false
 			if enemy != null:
 				enemy_take_damage(enemy)
@@ -300,7 +353,18 @@ func _on_attack_range_4_body_exited(body):
 	if body != null and body.is_in_group("Goblin"):
 		very_far = false
 
-func _on_timer_2_timeout():
-	wait_sec += 1
-	if wait_sec == 5:
-		ult_timer.stop()
+func _on_ability_3_side_body_entered(body):
+	if body != null and body.is_in_group("Goblin"):
+		ability_in_area = true
+
+func _on_ability_3_side_body_exited(body):
+	if body != null and body.is_in_group("Goblin"):
+		ability_in_area = false
+
+func _on_ability_3_diagonal_body_entered(body):
+	if body != null and body.is_in_group("Goblin"):
+		ability_in_area = true
+
+func _on_ability_3_diagonal_body_exited(body):
+	if body != null and body.is_in_group("Goblin"):
+		ability_in_area = false
