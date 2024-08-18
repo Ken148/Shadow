@@ -12,11 +12,10 @@ var last_direction: Vector2 = Vector2.DOWN
 @onready var interaction_area = $Knife_range/CollisionPolygon2D
 @onready var knife_range = $Knife_range
 @onready var ability_3_side = $Ability_3_side
+
 @onready var attack_range_2 = $Attack_range_2
 @onready var attack_range_3 = $Attack_range_3
 @onready var attack_range_4 = $Attack_range_4
-
-
 var close = false
 var far = false
 var very_far = false
