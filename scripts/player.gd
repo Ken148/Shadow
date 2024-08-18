@@ -9,16 +9,20 @@ var last_direction: Vector2 = Vector2.DOWN
 @onready var timer2 = get_tree().current_scene.get_node("Timer2")
 @onready var timer3 = get_tree().current_scene.get_node("Timer3")
 @onready var ability_timer = $Ability_timer
-@onready var interaction_area = $Attack_range_1/CollisionPolygon2D
-@onready var attack_range_1 = $Attack_range_1
-@onready var ability_3 = $Ability_3_side
-@onready var ability_3_diagonal = $Ability_3_diagonal
+@onready var interaction_area = $Knife_range/CollisionPolygon2D
+@onready var knife_range = $Knife_range
+@onready var ability_3_side = $Ability_3_side
+@onready var attack_range_2 = $Attack_range_2
+@onready var attack_range_3 = $Attack_range_3
+@onready var attack_range_4 = $Attack_range_4
+
 
 var close = false
 var far = false
 var very_far = false
 var slice_attack = false
 
+var second_hit = false
 var wait_sec = 0
 var mouse_pos: Vector2
 var bullet_scene = preload("res://scenes/bullet.tscn")
@@ -66,6 +70,8 @@ func _physics_process(delta):
 	var new_direction = direction.normalized()
 	velocity = velocity_
 	move_and_slide()
+	
+	monitoring_ability()
 	
 	if enemy != null:
 		new_position = enemy.position 
@@ -126,6 +132,7 @@ func _input(event):
 			mode = 3
 		
 	if Input.is_action_just_pressed("4"):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		mode = 4
 		
 	if Input.is_action_pressed("sprint"):
@@ -139,6 +146,7 @@ func _input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
 	if Input.is_action_pressed("move_up"):
+		monitoring_ability()
 		end_position = position
 		direction.y -= 1
 		interaction_area.rotation = deg_to_rad(270)
@@ -148,6 +156,7 @@ func _input(event):
 			$PlayerAnimator.play("Player_animations/Turn_backwards")
 			
 	if Input.is_action_pressed("move_down"):
+		monitoring_ability()
 		end_position = position
 		direction.y += 1
 		interaction_area.rotation = deg_to_rad(90)
@@ -157,6 +166,7 @@ func _input(event):
 			$PlayerAnimator.play("Player_animations/Turn_forward")
 		
 	if Input.is_action_pressed("move_right"):
+		monitoring_ability()
 		end_position = position
 		direction.x += 1
 		interaction_area.rotation = deg_to_rad(0)
@@ -166,6 +176,7 @@ func _input(event):
 			$PlayerAnimator.play("Player_animations/Turn_right")
 		
 	if Input.is_action_pressed("move_left"):
+		monitoring_ability()
 		end_position = position
 		direction.x -= 1
 		interaction_area.rotation = deg_to_rad(180)
@@ -175,66 +186,45 @@ func _input(event):
 			$PlayerAnimator.play("Player_animations/Turn_left")
 	
 	if Input.is_action_pressed("move_up") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down")):
-		ability_3.rotation = deg_to_rad(270)
-		ability_3_diagonal.visible = false
-		ability_3.visible = true
+		monitoring_ability()
+		ability_3_side.rotation = deg_to_rad(270)
 	
 	if Input.is_action_pressed("move_down") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right")):
-		ability_3.rotation = deg_to_rad(90)
-		ability_3_diagonal.visible = false
-		ability_3.visible = true
+		monitoring_ability()
+		ability_3_side.rotation = deg_to_rad(90)
 		
 	if Input.is_action_pressed("move_right") and not (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
-		ability_3.rotation = deg_to_rad(0)
-		ability_3_diagonal.visible = false
-		ability_3.visible = true
+		monitoring_ability()
+		ability_3_side.rotation = deg_to_rad(0)
 	
 	if Input.is_action_pressed("move_left") and not (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
-		ability_3.rotation = deg_to_rad(180)
-		ability_3_diagonal.visible = false
-		ability_3.visible = true
-	
-	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_up"):
-		last_key = "up_left"
-		ability_3.visible = false
-		ability_3_diagonal.visible = true
-		ability_3_diagonal.monitoring = true
-		ability_3_diagonal.rotation = deg_to_rad(180)
-	else:
-		ability_3_diagonal.monitoring = false
+		monitoring_ability()
+		ability_3_side.rotation = deg_to_rad(180)
 		
 	if Input.is_action_pressed("move_right") and Input.is_action_pressed("move_up"):
+		monitoring_ability()
 		last_key = "up_right"
-		ability_3.visible = false
-		ability_3_diagonal.visible = true
-		ability_3_diagonal.monitoring = true
-		ability_3_diagonal.rotation = deg_to_rad(270)
-	else: 
-		ability_3_diagonal.monitoring = false
+		ability_3_side.rotation = deg_to_rad(315)
+		
+	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_up"):
+		monitoring_ability()
+		last_key = "up_left"
+		ability_3_side.rotation = deg_to_rad(225)
 		
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_down"):
+		monitoring_ability()
 		last_key = "down_left"
-		ability_3.visible = false
-		ability_3_diagonal.visible = true
-		ability_3_diagonal.monitoring = true
-		ability_3_diagonal.rotation = deg_to_rad(90)
-	else: 
-		ability_3_diagonal.monitoring = false
+		ability_3_side.rotation = deg_to_rad(135)
 		
 	if Input.is_action_pressed("move_right") and Input.is_action_pressed("move_down"):
+		monitoring_ability()
 		last_key = "down_right"
-		ability_3.visible = false
-		ability_3_diagonal.visible = true
-		ability_3_diagonal.monitoring = true
-		ability_3_diagonal.rotation = deg_to_rad(0)
-	else: 
-		ability_3_diagonal.monitoring = false
+		ability_3_side.rotation = deg_to_rad(45)
 		
 	velocity_ = direction.normalized() * speed
 	
 	if Input.is_action_just_pressed("attack"):
 		if mode == 1:
-			attack_range_1.monitoring = true
 			attacking = true
 			match last_key:
 				"right":
@@ -272,12 +262,22 @@ func _input(event):
 					
 		if mode == 3 and ability_in_area:
 			if ability_recharged:
-				position = new_position 
+				position = new_position
+				enemy_take_damage(enemy)
+				second_hit = true
+				await get_tree().create_timer(2).timeout
+				if enemy != null:
+					enemy_take_damage(enemy)
 				
 		if mode == 4:
-			attack_range_1.monitoring = false
 			if enemy != null:
 				enemy_take_damage(enemy)
+				await get_tree().create_timer(2).timeout
+				if enemy != null:
+					enemy_take_damage(enemy)
+					await get_tree().create_timer(2).timeout
+					if enemy != null:
+						enemy_take_damage(enemy)
 
 func on_timer_timeout2():
 	"""$Camera2D/UI/Health_fill.value += 10"""
@@ -294,6 +294,12 @@ func enemy_take_damage(target: CharacterBody2D):
 			if slice_attack:
 				target.take_damage(20)
 				slice_attack = false
+		if mode == 3:
+			if second_hit:
+				target.take_damage(40)
+				second_hit = false
+			else:
+				target.take_damage(25)
 		if mode == 4:
 			if close:
 				target.take_damage(50)
@@ -360,11 +366,68 @@ func _on_ability_3_side_body_entered(body):
 func _on_ability_3_side_body_exited(body):
 	if body != null and body.is_in_group("Goblin"):
 		ability_in_area = false
-
-func _on_ability_3_diagonal_body_entered(body):
-	if body != null and body.is_in_group("Goblin"):
-		ability_in_area = true
-
-func _on_ability_3_diagonal_body_exited(body):
-	if body != null and body.is_in_group("Goblin"):
-		ability_in_area = false
+		
+func monitoring_ability():
+	if mode == 1:
+		knife_range.monitoring = true
+		knife_range.monitorable = true
+		
+		attack_range_2.monitoring = false
+		attack_range_2.monitorable = false
+		
+		attack_range_3.monitoring = false
+		attack_range_3.monitorable = false
+		
+		attack_range_4.monitoring = false
+		attack_range_4.monitorable = false
+		
+		ability_3_side.monitoring = false
+		ability_3_side.monitorable = false
+		
+	if mode == 2:
+		knife_range.monitoring = false
+		knife_range.monitorable = false
+		
+		attack_range_2.monitoring = false
+		attack_range_2.monitorable = false
+		
+		attack_range_3.monitoring = false
+		attack_range_3.monitorable = false
+		
+		attack_range_4.monitoring = false
+		attack_range_4.monitorable = false
+		
+		ability_3_side.monitoring = false
+		ability_3_side.monitorable = false
+		
+	if mode == 3:
+		knife_range.monitoring = false
+		knife_range.monitorable = false
+		
+		attack_range_2.monitoring = false
+		attack_range_2.monitorable = false
+		
+		attack_range_3.monitoring = false
+		attack_range_3.monitorable = false
+		
+		attack_range_4.monitoring = false
+		attack_range_4.monitorable = false
+		
+		ability_3_side.monitoring = true
+		ability_3_side.monitorable = true
+		
+	if mode == 4:
+		knife_range.monitoring = false
+		knife_range.monitorable = false
+		
+		attack_range_2.monitoring = true
+		attack_range_2.monitorable = true
+		
+		attack_range_3.monitoring = true
+		attack_range_3.monitorable = true
+		
+		attack_range_4.monitoring = true
+		attack_range_4.monitorable = true
+		
+		ability_3_side.monitoring = false
+		ability_3_side.monitorable = false
