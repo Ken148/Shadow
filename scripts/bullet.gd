@@ -4,6 +4,7 @@ extends Node2D
 var direction: Vector2 = Vector2.ZERO
 
 func _ready():
+	# setting direction
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
 
@@ -11,6 +12,7 @@ func _physics_process(delta):
 	position += direction * speed * delta
 
 func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	# giving enemy damage and removing bullet
 	if area.is_in_group("Goblin"): 
 		var parent = area.get_parent()
 		if parent.has_method("take_damage"):
