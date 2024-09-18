@@ -1,6 +1,6 @@
 ## SHADOWS OF THE ALCHEMIST
 
-![bISaeJ](https://github.com/user-attachments/assets/c8c1d81a-0ae3-4b61-aba6-bfde236b33c9)
+![bISaeJ](https://github.com/user-attachments/assets/9b2c20ae-a429-40f9-a942-1930ba0f3476)
 
 #### DESIGN DOCUMENT
 By Ken
