@@ -204,16 +204,16 @@ script = ExtResource("1_50mfd")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 3
-position = Vector2(13, -7)
+scale = Vector2(1.7, 1.7)
 zoom = Vector2(2.3, 2.3)
 
 [node name="UI" type="Control" parent="Camera2D"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -129.721
-offset_top = -59.4862
-offset_right = 510.279
-offset_bottom = -19.4862
+offset_left = -117.778
+offset_top = -60.5556
+offset_right = 522.222
+offset_bottom = -20.5556
 scale = Vector2(0.369367, 3.32428)
 
 [node name="Health_fill" type="TextureProgressBar" parent="Camera2D/UI"]
