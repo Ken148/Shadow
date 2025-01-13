@@ -31,36 +31,37 @@ _data = {
 [node name="MainMenu" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(319, 129)
+position = Vector2(578, 324)
+scale = Vector2(1.5026, 1.27734)
 texture = ExtResource("1_jnimm")
 
 [node name="Options_button" type="Button" parent="."]
-offset_left = 35.0
-offset_top = 157.0
-offset_right = 105.0
-offset_bottom = 188.0
+offset_left = 100.0
+offset_top = 310.0
+offset_right = 247.0
+offset_bottom = 362.0
 scale = Vector2(1.227, 0.828984)
 text = "Options"
 
 [node name="Exit_button" type="Button" parent="."]
-offset_left = 36.0
-offset_top = 196.0
-offset_right = 73.0
-offset_bottom = 227.0
+offset_left = 100.0
+offset_top = 366.0
+offset_right = 192.0
+offset_bottom = 416.0
 scale = Vector2(1.21579, 0.821414)
 text = "Exit"
 
 [node name="Start_button" type="Button" parent="."]
-offset_left = 35.0
-offset_top = 119.0
-offset_right = 81.0
-offset_bottom = 150.0
+offset_left = 100.0
+offset_top = 250.0
+offset_right = 209.0
+offset_bottom = 305.0
 scale = Vector2(1.20992, 0.817448)
 text = "Start"
 
 [node name="Player_sprite" type="Sprite2D" parent="."]
-position = Vector2(330, 253)
-scale = Vector2(4.98904, 4.98904)
+position = Vector2(594, 490.912)
+scale = Vector2(4.98904, 5.11952)
 texture = SubResource("CompressedTexture2D_bjf4q")
 hframes = 10
 vframes = 10

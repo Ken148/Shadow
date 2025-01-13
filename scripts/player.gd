@@ -146,7 +146,7 @@ func _physics_process(delta):
 		
 	# changing scenes after death 
 	if $Camera2D/UI/Health_fill.value <= 0:
-		"""get_tree().change_scene_to_file("res://scenes/died_scene.tscn")"""
+		get_tree().change_scene_to_file("res://scenes/died_scene.tscn")
 		
 func _input(event):
 	var direction = Vector2.ZERO
@@ -360,7 +360,7 @@ func _input(event):
 
 # player taking damage
 func on_timer_timeout2():
-	"""$Camera2D/UI/Health_fill.value += 10"""
+	$Camera2D/UI/Health_fill.value += 10
 
 # bullet removal
 func on_timer_timeout3():
